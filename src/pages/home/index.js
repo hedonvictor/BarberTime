@@ -1,9 +1,9 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { Button } from 'react-native';
-import styles from './styles';
+import { Text, View, Button } from 'react-native';
+import styles from './styles'; // Certifique-se de que o caminho está correto
 
-const  HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
@@ -14,6 +14,6 @@ const  HomeScreen = ({navigation}) => {
       <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 export default HomeScreen;
