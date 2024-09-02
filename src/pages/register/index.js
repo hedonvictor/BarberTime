@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#FF0000',
     marginBottom: 15,
-    fontWeight: 'bold',
+    
   },
 });
 
