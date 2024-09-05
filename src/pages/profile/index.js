@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'; // Importa os ícones
 
 const UserProfileScreen = () => {
   // Importa a imagem da pasta assets
-  const defaultProfilePicture = Asset.fromModule(require('../../assets/ebony.png')).uri;
+  const defaultProfilePicture = Asset.fromModule(require('../../assets/mama.jpeg')).uri;
   const [profileImage, setProfileImage] = useState(defaultProfilePicture);
 
   const pickImage = async () => {

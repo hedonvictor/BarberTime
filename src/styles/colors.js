@@ -4,5 +4,6 @@ export default {
     customGreenMoss: '#A274e13',
     customGreen: '#b5e550',
     customGreen2: '#38761d',
-    customGreen3: '#6aa84f'
+    customGreen3: '#6aa84f',
+    customGreenMusgo4: '#2b3213'
 };

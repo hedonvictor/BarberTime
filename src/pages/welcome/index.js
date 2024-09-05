@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const WelcomeScreen = ({ navigation }) => {
   useEffect(() => {
@@ -12,9 +13,13 @@ const WelcomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={['#353535', '#1a1a1a']} // Gradiente do fundo
+        style={StyleSheet.absoluteFillObject} // Faz o gradiente preencher o container
+      />
       {/* Imagem de carregamento */}
       <Image
-        source={require('../../assets/logo.png')} // Substitua por seu caminho de imagem
+        source={require('../../assets/logo2.png')} // Substitua por seu caminho de imagem
         style={styles.logo}
       />
       <ActivityIndicator size="large" color="#ffffff" />
@@ -28,11 +33,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#004E98',
+    // backgroundColor: '#004E98', // Removido, pois o gradiente será o fundo
   },
   logo: {
-    width: 300,  // Defina a largura da imagem
-    height: 300, // Defina a altura da imagem
+    width: 400,  // Defina a largura da imagem
+    height: 400, // Defina a altura da imagem
     marginBottom: 20,
   },
   loadingText: {

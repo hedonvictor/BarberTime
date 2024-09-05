@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, TextInput, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -15,18 +16,22 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={['#353535', '#1a1a1a']} // Degradê do fundo
+        style={StyleSheet.absoluteFillObject} // Faz o degradê preencher o container
+      />
       <Animatable.View
         animation="flipInY"
-        duration={1500} // Ajuste a duração da animação conforme necessário
+        duration={1500}
         style={styles.logoContainer}
       >
         <Image
-          source={require('../../assets/logo.png')} // Atualize o caminho da logo conforme necessário
+          source={require('../../assets/logo2.png')}
           style={styles.logo}
         />
       </Animatable.View>
       
-      <Animatable.View delay={1000}animation="fadeInUp"style={styles.inputContainer}>
+      <Animatable.View delay={1000} animation="fadeInUp" style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Usuário"
@@ -40,15 +45,22 @@ const LoginScreen = ({ navigation }) => {
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.button, styles.registerButton]} 
-          onPress={() => navigation.navigate('RegisterScreen')}
+        <LinearGradient
+          colors={['#cbea68', '#6aa84f']}
+          style={styles.button}
         >
-          <Text style={styles.buttonText}>Registrar-me</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonInner} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Acessar</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+        <LinearGradient
+          colors={['#cbea68', '#6aa84f']}
+          style={[styles.button, styles.registerButton]}
+        >
+          <TouchableOpacity style={styles.buttonInner} onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.buttonText}>Registrar-me</Text>
+          </TouchableOpacity>
+        </LinearGradient>
       </Animatable.View>
       <StatusBar style="auto" />
     </View>
@@ -60,50 +72,53 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#004E98',
+    // backgroundColor: '#353535', // Removido, pois o degradê será o fundo
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: -300, // Ajuste a margem inferior para garantir que o formulário fique bem abaixo da logo
   },
   logo: {
-    width: 300, // Ajuste o tamanho da logo conforme necessário
-    height: 300,
+    marginBottom: 260,
+    width: 400, // Ajuste o tamanho conforme necessário
+    height: 400, // Ajuste o tamanho conforme necessário
   },
   inputContainer: {
     alignItems: 'center',
-    marginBottom: 16,
+    marginTop: 20, // Garantir que o formulário fique abaixo da logo
   },
   input: {
     height: 40,
-    borderColor: '#000000', // Cor da borda igual ao dos botões
-    borderWidth: 1,      // Largura da borda igual ao dos botões
-    borderRadius: 8,     // Arredondamento igual ao dos botões
-    marginBottom: 5,
+    borderColor: '#2b3213', // Cor da borda ajustada
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10, // Aumentar o espaço entre os campos de entrada
     paddingHorizontal: 8,
-    backgroundColor: '#fff', // Fundo branco para os campos de entrada
-    width: '70%', // Ajuste a largura dos campos de entrada conforme necessário
-    fontWeight: 'bold', // Certificando-se de que o texto está em negrito
+    backgroundColor: '#fff',
+    width: '70%',
+    fontWeight: 'bold',
   },
   button: {
-    backgroundColor: '#110966', // Fundo branco para os botões
-    borderColor: '#000000', // Cor da borda dos botões
-    borderWidth: 1,     // Largura da borda dos botões
-    borderRadius: 8,    // Arredondamento da borda dos botões
-    padding: 10,
+    borderRadius: 8,
     marginBottom: 8,
-    alignSelf: 'center',
-    width: '70%', // Ajuste a largura dos botões conforme necessário
-    fontWeight: 'bold',
+    width: '70%',
+    height: 40, // Diminuído para melhor proporção
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonInner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    color: '#fff', // Cor do texto dos botões
-    textAlign: 'center',
-    fontSize: 16,
+    color: '#fff',
+    fontSize: 14, // Diminuído para melhor proporção
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   registerButton: {
-    marginBottom: 5, // Remove o espaço inferior para estar mais próximo do botão "Acessar"
+    marginBottom: 20, // Ajuste a margem inferior para o botão de registro
   },
 });
 
