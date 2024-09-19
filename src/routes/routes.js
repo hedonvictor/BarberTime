@@ -1,6 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Importação das telas
 import BottomTabsNavigator from './BottomTabsNavigator';
@@ -14,23 +16,33 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="WelcomeScreen">
-        {/* tela de perfil do usuário */}
-        <Stack.Screen 
-          name="UserProfileScreen" 
-          component={UserProfileScreen} 
-          options={{ headerShown: false }} 
+      <Stack.Navigator initialRouteName="Home" screenOptions={{
+        headerShown: false, }} >
+        {/* Tela de perfil do usuário */}
+        <Stack.Screen
+          name="UserProfileScreen"
+          component={UserProfileScreen}
+          options={{ headerShown: false }} // Esconde o header na tela de perfil do usuário
         />
 
-        {/* tela de carregamento */}
-        <Stack.Screen 
-          name="WelcomeScreen" 
-          component={WelcomeScreen} 
-          options={{ headerShown: false }} 
+        {/* Tela de carregamento */}
+        <Stack.Screen
+          name="WelcomeScreen"
+          component={WelcomeScreen}
+          options={{ headerShown: false }} // Esconde o header na tela de carregamento
         />
 
-        {/* rota que ainda necessita receber proteção */}
-        <Stack.Screen name="Home" component={BottomTabsNavigator} />
+        {/* Rota que ainda necessita receber proteção */}
+        <Stack.Screen
+          name="Home" 
+          component={BottomTabsNavigator}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+                <Ionicons name="notifications-outline" size={25} color="#000" style={{ marginRight: 15 }} />
+              </TouchableOpacity>
+            ),
+          })} />
 
         {/* rotas ok */}
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
