@@ -1,54 +1,84 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, TextInput, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
-  const handleLogin = () => {
-    // Lógica de autenticação aqui
-    console.log('Usuário:', username);
-    console.log('Senha:', password);
+  const onSubmit = (data) => {
+    console.log('Usuário:', data.username);
+    console.log('Senha:', data.password);
   };
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={['#353535', '#1a1a1a']} // Degradê do fundo
+        style={StyleSheet.absoluteFillObject} // Faz o degradê preencher o container
+      />
       <Animatable.View
         animation="flipInY"
-        duration={1500} // Ajuste a duração da animação conforme necessário
+        duration={1500}
         style={styles.logoContainer}
       >
         <Image
-          source={require('../../assets/logo.png')} // Atualize o caminho da logo conforme necessário
+          source={require('../../assets/logo2.png')}
           style={styles.logo}
         />
       </Animatable.View>
-      
-      <Animatable.View delay={1000}animation="fadeInUp"style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Usuário"
-          value={username}
-          onChangeText={setUsername}
+
+      <Animatable.View delay={1000} animation="fadeInUp" style={styles.inputContainer}>
+        <Controller
+          control={control}
+          rules={{ required: true }}
+          name="username"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Usuário"
+              value={value}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
+        {errors.username && <Text style={styles.errorText}>Usuário é obrigatório.</Text>}
+
+        <Controller
+          control={control}
+          rules={{ required: true, minLength: 8 }}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              secureTextEntry
+              value={value}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.button, styles.registerButton]} 
-          onPress={() => navigation.navigate('RegisterScreen')}
+        {errors.password && <Text style={styles.errorText}>Senha é obrigatória e deve ter pelo menos 8 caracteres.</Text>}
+
+        <LinearGradient
+          colors={['#cbea68', '#6aa84f']}
+          style={styles.button}
         >
-          <Text style={styles.buttonText}>Registrar-me</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonInner} onPress={handleSubmit(onSubmit)}>
+            <Text style={styles.buttonText}>Acessar</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+
+        <LinearGradient
+          colors={['#cbea68', '#6aa84f']}
+          style={[styles.button, styles.registerButton]}
+        >
+          <TouchableOpacity style={styles.buttonInner} onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.buttonText}>Registrar-me</Text>
+          </TouchableOpacity>
+        </LinearGradient>
       </Animatable.View>
       <StatusBar style="auto" />
     </View>
@@ -60,50 +90,56 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#004E98', 
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: -300,
   },
   logo: {
-    width: 300, // Ajuste o tamanho da logo conforme necessário
-    height: 300,
+    marginBottom: 260,
+    width: 400,
+    height: 400,
   },
   inputContainer: {
     alignItems: 'center',
-    marginBottom: 16,
+    marginTop: 20,
   },
   input: {
     height: 40,
-    borderColor: '#000000', // Cor da borda igual ao dos botões
-    borderWidth: 1,      // Largura da borda igual ao dos botões
-    borderRadius: 8,     // Arredondamento igual ao dos botões
-    marginBottom: 5,
+    borderColor: '#2b3213',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
     paddingHorizontal: 8,
-    backgroundColor: '#fff', // Fundo branco para os campos de entrada
-    width: '70%', // Ajuste a largura dos campos de entrada conforme necessário
-    fontWeight: 'bold', // Certificando-se de que o texto está em negrito
+    backgroundColor: '#fff',
+    width: '70%',
+    fontWeight: 'bold',
   },
   button: {
-    backgroundColor: '#110966', // Fundo branco para os botões
-    borderColor: '#000000', // Cor da borda dos botões
-    borderWidth: 1,     // Largura da borda dos botões
-    borderRadius: 8,    // Arredondamento da borda dos botões
-    padding: 10,
+    borderRadius: 8,
     marginBottom: 8,
-    alignSelf: 'center',
-    width: '70%', // Ajuste a largura dos botões conforme necessário
-    fontWeight: 'bold',
+    width: '70%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonInner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    color: '#fff', // Cor do texto dos botões
-    textAlign: 'center',
-    fontSize: 16,
+    color: '#fff',
+    fontSize: 14,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   registerButton: {
-    marginBottom: 5, // Remove o espaço inferior para estar mais próximo do botão "Acessar"
+    marginBottom: 20,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 

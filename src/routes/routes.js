@@ -8,8 +8,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import LoginScreen from '../pages/login';
 import RegisterScreen from '../pages/register';
-import WelcomeScreen from '../pages/welcome/index';  // Importando a WelcomeScreen
-import UserProfileScreen from '../pages/profile/index'; // Importando a UserProfileScreen
+import WelcomeScreen from '../pages/welcome/index';  
+import UserProfileScreen from '../pages/profile/index'; 
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +44,7 @@ function AppNavigator() {
             ),
           })} />
 
-        {/* Rotas ok */}
+        {/* rotas ok */}
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
       </Stack.Navigator>
