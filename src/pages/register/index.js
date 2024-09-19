@@ -41,7 +41,7 @@ const RegisterScreen = () => {
       setErrors(newErrors);
     } else {
       setErrors({});
-      // Navegar para a tela de login ou outro comportamento desejado
+      // navegar para a tela de login ou outro comportamento desejado
       navigation.navigate('LoginScreen');
     }
   };
@@ -49,8 +49,8 @@ const RegisterScreen = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#353535', '#1a1a1a']} // Degradê do fundo
-        style={StyleSheet.absoluteFillObject} // Faz o degradê preencher o container
+        colors={['#353535', '#1a1a1a']} // degradê do fundo
+        style={StyleSheet.absoluteFillObject} // az o degradê preencher o container
       />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image source={require('../../assets/logo2.png')} style={styles.logo} />

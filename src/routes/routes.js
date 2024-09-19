@@ -6,8 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import LoginScreen from '../pages/login';
 import RegisterScreen from '../pages/register';
-import WelcomeScreen from '../pages/welcome/index';  // Importando a WelcomeScreen
-import UserProfileScreen from '../pages/profile/index'; // Importando a UserProfileScreen
+import WelcomeScreen from '../pages/welcome/index';  
+import UserProfileScreen from '../pages/profile/index'; 
 
 const Stack = createNativeStackNavigator();
 
@@ -15,24 +15,24 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="UserProfileScreen">
-        {/* Tela de perfil do usuário */}
+        {/* tela de perfil do usuário */}
         <Stack.Screen 
           name="UserProfileScreen" 
           component={UserProfileScreen} 
-          options={{ headerShown: false }} // Esconde o header na tela de perfil do usuário
+          options={{ headerShown: false }} 
         />
 
-        {/* Tela de carregamento */}
+        {/* tela de carregamento */}
         <Stack.Screen 
           name="WelcomeScreen" 
           component={WelcomeScreen} 
-          options={{ headerShown: false }} // Esconde o header na tela de carregamento
+          options={{ headerShown: false }} 
         />
 
-        {/* Rota que ainda necessita receber proteção */}
+        {/* rota que ainda necessita receber proteção */}
         <Stack.Screen name="Home" component={BottomTabsNavigator} />
 
-        {/* Rotas ok */}
+        {/* rotas ok */}
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
       </Stack.Navigator>

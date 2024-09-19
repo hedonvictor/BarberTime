@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, TextInput, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
-  const handleLogin = () => {
-    // Lógica de autenticação aqui
-    console.log('Usuário:', username);
-    console.log('Senha:', password);
+  const onSubmit = (data) => {
+    console.log('Usuário:', data.username);
+    console.log('Senha:', data.password);
   };
 
   return (
@@ -30,29 +29,48 @@ const LoginScreen = ({ navigation }) => {
           style={styles.logo}
         />
       </Animatable.View>
-      
+
       <Animatable.View delay={1000} animation="fadeInUp" style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Usuário"
-          value={username}
-          onChangeText={setUsername}
+        <Controller
+          control={control}
+          rules={{ required: true }}
+          name="username"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Usuário"
+              value={value}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
+        {errors.username && <Text style={styles.errorText}>Usuário é obrigatório.</Text>}
+
+        <Controller
+          control={control}
+          rules={{ required: true, minLength: 8 }}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              secureTextEntry
+              value={value}
+              onChangeText={onChange}
+            />
+          )}
         />
+        {errors.password && <Text style={styles.errorText}>Senha é obrigatória e deve ter pelo menos 8 caracteres.</Text>}
+
         <LinearGradient
           colors={['#cbea68', '#6aa84f']}
           style={styles.button}
         >
-          <TouchableOpacity style={styles.buttonInner} onPress={handleLogin}>
+          <TouchableOpacity style={styles.buttonInner} onPress={handleSubmit(onSubmit)}>
             <Text style={styles.buttonText}>Acessar</Text>
           </TouchableOpacity>
         </LinearGradient>
+
         <LinearGradient
           colors={['#cbea68', '#6aa84f']}
           style={[styles.button, styles.registerButton]}
@@ -72,27 +90,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    // backgroundColor: '#353535', // Removido, pois o degradê será o fundo
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: -300, // Ajuste a margem inferior para garantir que o formulário fique bem abaixo da logo
+    marginBottom: -300,
   },
   logo: {
     marginBottom: 260,
-    width: 400, // Ajuste o tamanho conforme necessário
-    height: 400, // Ajuste o tamanho conforme necessário
+    width: 400,
+    height: 400,
   },
   inputContainer: {
     alignItems: 'center',
-    marginTop: 20, // Garantir que o formulário fique abaixo da logo
+    marginTop: 20,
   },
   input: {
     height: 40,
-    borderColor: '#2b3213', // Cor da borda ajustada
+    borderColor: '#2b3213',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10, // Aumentar o espaço entre os campos de entrada
+    marginBottom: 10,
     paddingHorizontal: 8,
     backgroundColor: '#fff',
     width: '70%',
@@ -102,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 8,
     width: '70%',
-    height: 40, // Diminuído para melhor proporção
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -113,12 +130,16 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 14, // Diminuído para melhor proporção
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   registerButton: {
-    marginBottom: 20, // Ajuste a margem inferior para o botão de registro
+    marginBottom: 20,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 
