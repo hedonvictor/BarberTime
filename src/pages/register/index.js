@@ -44,7 +44,16 @@ const RegisterScreen = () => {
       // navegar para a tela de login ou outro comportamento desejado
       navigation.navigate('LoginScreen');
     }
+    
+    console.log('Dados do Registro:', {
+      fullName,
+      email,
+      username,
+      password,
+      confirmPassword,
+    });
   };
+    
 
   return (
     <View style={styles.container}>

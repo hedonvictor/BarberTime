@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="UserProfileScreen">
+      <Stack.Navigator initialRouteName="WelcomeScreen">
         {/* tela de perfil do usuário */}
         <Stack.Screen 
           name="UserProfileScreen" 

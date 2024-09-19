@@ -12,8 +12,8 @@ const UserProfileScreen = () => {
 
   const navigation = useNavigation(); // Obtém o objeto de navegação
 
-  const defaultProfilePicture = Asset.fromModule(require('../../assets/cr7.png')).uri;
-  const [profileImage, setProfileImage] = useState(Asset.fromModule(require('../../assets/mama.jpeg')).uri);
+  const defaultProfilePicture = Asset.fromModule(require('../../assets/cr7.jpg')).uri;
+  
   const [description, setDescription] = useState('protótipo de tela de perfil do usuário.');
   const [editingDescription, setEditingDescription] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
@@ -37,9 +37,7 @@ const UserProfileScreen = () => {
     }
   };
 
-  const setDefaultImage = () => {
-    setProfileImage(Asset.fromModule(require('../../assets/mama.jpeg')).uri);
-  };
+  
 
   const handleLogout = () => {
     Alert.alert('Deslogado com sucesso');
